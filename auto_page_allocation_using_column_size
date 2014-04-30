@@ -1,0 +1,77 @@
+<?php
+
+//========================================================================================+
+// File name   : dynamic_page_allocation.php
+// Begin       : 30-04-2014
+// Last Update : 30-04-2014
+//
+// Description : Used to allocate the page size automatically according 
+//				 to the column size which is given by user. For example here i use
+//				 5 columns per page. If i give 8 as a column size
+//				 first 5 columns will be print in firt page and remaining 3 data will be 
+//				 printed in the second page.
+//
+// Author: Sathishkumar S
+//
+// (c) Copyright:
+//               Sathishkumar S
+//               http://sjksathishkumar.blogspot.com
+//               sjksathishkumar@gmail.com
+//========================================================================================+
+
+// input column size given by user
+
+$input_column = 8;
+$rem_column = $input_column;
+$page_count=1;
+
+echo "input_column=$input_column<br>";
+
+// Find the page size 
+
+$no_of_page = ceil($input_column/5);  	// Here 5 is the default page column size
+echo "No of Page=$no_of_page<br>";
+
+// Print the column if user give column size is less then 5
+
+if($no_of_page == 1)
+{
+	echo "Single Pdf Page<br>";
+	for ($x=1; $x<=$input_column; $x++) 
+	{
+		echo "Content for $page_count Page - Data no $x <tab>||";
+	} 
+}
+
+// Print the column if column size is more than 5
+
+else
+{
+	$x = $input_column;
+	while ( $x > 5) 
+		{
+			echo "<br>Page No- $page_count <br>";
+			for($y=1; $y<=5; $y++)
+				{
+					echo "Content for $page_count Page - Data no $y <tab>||";
+				}
+			echo "<br>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+			$page_count++;
+			$rem_column-=5;
+			$x-=5;
+		}
+
+	echo "<br>Page No- $page_count <br>";
+
+// Print the last page columns(Remaining columns)
+
+	for($z=1; $z<=$rem_column; $z++)
+	{
+		echo "Content for $page_count Page - Data no $z <tab>||";		
+	}
+
+	echo "<br>Page Count-$page_count";
+	echo "<br>Remaining Column - $rem_column";
+}
+
+?>
